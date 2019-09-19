@@ -25,6 +25,8 @@ class ComplaintsController < ApplicationController
   # POST /complaints.json
   def create
     @complaint = Complaint.new(complaint_params)
+    
+    @complaint.suspeito = true
 
     respond_to do |format|
       if @complaint.save
