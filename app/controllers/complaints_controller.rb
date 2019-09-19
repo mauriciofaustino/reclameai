@@ -26,7 +26,22 @@ class ComplaintsController < ApplicationController
   def create
     @complaint = Complaint.new(complaint_params)
     
+    #consumindo as duas APIs (extrair esse codigo para classe de servico)
+    res = RestClient.get 'https://viacep.com.br/ws/'+@complaint.cep+'/json/'
+    result = JSON.parse(res)
+    p I18n.transliterate(result["localidade"])
+    
+    p request.remote_ip
+    begin 
+      res2 = RestClient.get 'https://api.ipgeolocation.io/ipgeo?apiKey=15627a30bd9446fc846ff54119516ecb&ip='+request.remote_ip
+    rescue
+      res2 = RestClient.get 'https://api.ipgeolocation.io/ipgeo?apiKey=15627a30bd9446fc846ff54119516ecb'
+    end  
+    result2 = JSON.parse(res2)
+    p result2
+
     @complaint.suspeito = true
+    #fim do codigo de servico
 
     respond_to do |format|
       if @complaint.save
