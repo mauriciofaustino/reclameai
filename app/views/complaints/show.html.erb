@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @complaint.nome %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @complaint.email %>
+</p>
+
+<p>
+  <strong>Numero pedido:</strong>
+  <%= @complaint.numero_pedido %>
+</p>
+
+<p>
+  <strong>Cep:</strong>
+  <%= @complaint.cep %>
+</p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @complaint.descricao %>
+</p>
+
+<p>
+  <strong>Suspeito:</strong>
+  <%= @complaint.suspeito %>
+</p>
+
+<%= link_to 'Edit', edit_complaint_path(@complaint) %> |
+<%= link_to 'Back', complaints_path %>
