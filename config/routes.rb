@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
-  resources :complaints
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+  resources :complaints, only: [:new, :create, :show, :index]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
