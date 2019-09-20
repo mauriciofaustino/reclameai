@@ -1,13 +1,7 @@
 class SuspeitoService
   class << self
     def is_suspeito(cep, ip)
-      !(get_localidade_cep(cep).eql? get_localidade_ip(ip))
-    end
-
-    def get_localidade_cep(cep)
-      res = RestClient.get 'https://viacep.com.br/ws/' + cep + '/json/'
-      result = JSON.parse(res)
-      I18n.transliterate(result["localidade"])
+      !(get_localidade_ip(ip).eql? get_localidade_cep(cep))
     end
 
     def get_localidade_ip(ip)
@@ -18,6 +12,15 @@ class SuspeitoService
       end
       result = JSON.parse(res)
       result["city"]
+    end
+
+    def get_localidade_cep(cep)
+      if cep == ""
+        return nil
+      end
+      res = RestClient.get 'https://viacep.com.br/ws/' + cep + '/json/'
+      result = JSON.parse(res)
+      I18n.transliterate(result["localidade"])
     end
   end
 end
