@@ -1,18 +1,23 @@
 class SuspeitoService
-    class << self
-        def is_suspeito(cep, ip)
-            res = RestClient.get 'https://viacep.com.br/ws/'+cep+'/json/'
-            result = JSON.parse(res)
+  class << self
+    def is_suspeito(cep, ip)
+      !(get_localidade_cep(cep).eql? get_localidade_ip(ip))
+    end
 
-            begin 
-            res2 = RestClient.get 'https://api.ipgeolocation.io/ipgeo?apiKey=15627a30bd9446fc846ff54119516ecb&ip='+ip
-            rescue
-            res2 = RestClient.get 'https://api.ipgeolocation.io/ipgeo?apiKey=15627a30bd9446fc846ff54119516ecb'
-            end  
-            result2 = JSON.parse(res2)
+    def get_localidade_cep(cep)
+      res = RestClient.get 'https://viacep.com.br/ws/' + cep + '/json/'
+      result = JSON.parse(res)
+      I18n.transliterate(result["localidade"])
+    end
 
-            localidade_igual = I18n.transliterate(result["localidade"]).eql? result2["city"]
-            !localidade_igual
-        end
+    def get_localidade_ip(ip)
+      begin
+        res = RestClient.get 'https://api.ipgeolocation.io/ipgeo?apiKey=15627a30bd9446fc846ff54119516ecb&ip=' + ip
+      rescue
+        res = RestClient.get 'https://api.ipgeolocation.io/ipgeo?apiKey=15627a30bd9446fc846ff54119516ecb'
+      end
+      result = JSON.parse(res)
+      result["city"]
     end
   end
+end
