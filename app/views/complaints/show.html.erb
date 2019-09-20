@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<div class="alert alert-success" role="alert">
+  <p id="notice"><%= notice %></p>
+</div>
 
 <p>
   <strong>Nome:</strong>
@@ -6,28 +8,22 @@
 </p>
 
 <p>
-  <strong>Email:</strong>
+  <strong>E-mail:</strong>
   <%= @complaint.email %>
 </p>
 
 <p>
-  <strong>Numero pedido:</strong>
+  <strong>N&uacute;mero pedido:</strong>
   <%= @complaint.numero_pedido %>
 </p>
 
 <p>
-  <strong>Cep:</strong>
+  <strong>CEP:</strong>
   <%= @complaint.cep %>
 </p>
 
 <p>
-  <strong>Descricao:</strong>
+  <strong>Descrição:</strong>
   <%= @complaint.descricao %>
 </p>
 
-<p>
-  <strong>Suspeito:</strong>
-  <%= @complaint.suspeito %>
-</p>
-
-<%= link_to 'Back', complaints_path %>

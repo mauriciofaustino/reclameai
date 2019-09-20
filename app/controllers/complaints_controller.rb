@@ -30,7 +30,7 @@ class ComplaintsController < ApplicationController
 
     respond_to do |format|
       if @complaint.save
-        format.html { redirect_to @complaint, notice: 'Complaint was successfully created.' }
+        format.html { redirect_to @complaint, notice: 'Reclamação criada com sucesso.' }
         format.json { render :show, status: :created, location: @complaint }
       else
         format.html { render :new }
