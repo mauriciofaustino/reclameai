@@ -38,9 +38,11 @@ class ComplaintsController < ApplicationController
       res2 = RestClient.get 'https://api.ipgeolocation.io/ipgeo?apiKey=15627a30bd9446fc846ff54119516ecb'
     end  
     result2 = JSON.parse(res2)
-    p result2
+    p result2["city"]
 
-    @complaint.suspeito = true
+    localidade_igual = I18n.transliterate(result["localidade"]).eql? result2["city"]
+    p !localidade_igual
+    @complaint.suspeito = !localidade_igual
     #fim do codigo de servico
 
     respond_to do |format|
